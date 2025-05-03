@@ -38,10 +38,22 @@ button:hover {
 </style>
 </head>
 <body>
+
+<script>
+// Check if the user has submitted the form (localStorage)
+if (!localStorage.getItem('user_submitted')) {
+  window.location.href = 'index.html'; // Redirect to form if not submitted
+}
+
+// Optional: Clear session once they reach the reward page
+localStorage.removeItem('user_submitted');
+</script>
+
 <div class="container">
   <h1>🎉 Congratulations!</h1>
   <p>You WON! Please take a screenshot of this page<br> and show it at the counter to claim your gift.</p>
   <button onclick="window.location.href='index.html'">Play Again</button>
 </div>
+
 </body>
 </html>
