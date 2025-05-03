@@ -90,23 +90,9 @@ button:hover {
 </div>
 
 <script>
-let revealed = false;
-function revealCard() {
-  if (revealed) return;
-  revealed = true;
-
-  const outcomes = ['WIN', 'TRY AGAIN', 'TRY AGAIN', 'WIN', 'TRY AGAIN'];
-  const result = outcomes[Math.floor(Math.random() * outcomes.length)];
-  document.getElementById('cardText').textContent = result;
-
-  document.getElementById('cover').style.opacity = '0';
-
-  if (result === 'WIN') {
-    setTimeout(() => {
-      window.location.href = 'reward.html';
-    }, 2000);
-  }
+if (!localStorage.getItem('user_submitted')) {
+  window.location.href = 'index.html'; // Force back to form if skipped
 }
-</script>
+
 </body>
 </html>
