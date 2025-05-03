@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Play & Win - Autostarke Energy</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #f9f9f9;
+      padding: 20px;
+    }
+
+    .container {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      max-width: 400px;
+      margin: auto;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      color: #007b5e;
+    }
+
+    input, button {
+      padding: 10px;
+      margin: 5px;
+      width: 80%;
+    }
+
+    button {
+      background-color: #007b5e;
+      color: white;
+      border: none;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Play & Win Exciting Gifts!</h1>
+    <form id="leadForm">
+      <input type="text" name="name" placeholder="Your Name" required /><br />
+      <input type="text" name="place" placeholder="Your Place" required /><br />
+      <input type="tel" name="phone" placeholder="Phone Number" required pattern="[0-9]{10}" /><br />
+      <button type="submit">Submit & Play</button>
+    </form>
+  </div>
+
+<script>
+const form = document.getElementById('leadForm');
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const name = form.name.value;
+  const place = form.place.value;
+  const phone = form.phone.value;
+
+  const response = await fetch('https://script.google.com/macros/s/AKfycbwgDSUn18zH2h1iogI2fbYcrMhi3RDelAkW-SOHXThz7WS5P3Jc4_-QaNtrgYTscoEYzQ/exec', {
+    method: 'POST',
+    body: JSON.stringify({ name, place, phone }),
+    headers: { 'Content-Type': 'application/json' },
+  });
+
+  const result = await response.json();
+  if (result.result === 'success') {
+    window.location.href = 'game.html';
+  } else {
+    alert('Something went wrong. Please try again!');
+  }
+});
+</script>
+</body>
+</html>
