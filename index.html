@@ -53,23 +53,28 @@
 const form = document.getElementById('leadForm');
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
-  const name = form.name.value;
-  const place = form.place.value;
-  const phone = form.phone.value;
 
-  const response = await fetch('https://script.google.com/macros/s/AKfycbwgDSUn18zH2h1iogI2fbYcrMhi3RDelAkW-SOHXThz7WS5P3Jc4_-QaNtrgYTscoEYzQ/exec', {
-    method: 'POST',
-    body: JSON.stringify({ name, place, phone }),
-    headers: { 'Content-Type': 'application/json' },
-  });
+  const formData = new FormData(form);
 
-  const result = await response.json();
-  if (result.result === 'success') {
-    window.location.href = 'game.html';
-  } else {
-    alert('Something went wrong. Please try again!');
+  try {
+    const response = await fetch('https://script.google.com/macros/s/AKfycbwgDSUn18zH2h1iogI2fbYcrMhi3RDelAkW-SOHXThz7WS5P3Jc4_-QaNtrgYTscoEYzQ/exec', {
+      method: 'POST',
+      body: formData
+    });
+
+    if (response.ok) {
+      // Set a flag to track that user submitted the form
+      localStorage.setItem('user_submitted', 'true');
+      window.location.href = 'game.html';
+    } else {
+      alert('Submission failed. Please try again.');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    alert('There was a problem submitting your entry.');
   }
 });
 </script>
+
 </body>
 </html>
